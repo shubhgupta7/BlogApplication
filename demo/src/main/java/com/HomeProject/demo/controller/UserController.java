@@ -1,4 +1,6 @@
 package com.HomeProject.demo.controller;
+import com.HomeProject.demo.dto.ProfileDto;
+import com.HomeProject.demo.dto.requestdto.LoginDto;
 import com.HomeProject.demo.model.Profile;
 import com.HomeProject.demo.service.Login;
 import com.HomeProject.demo.service.Signup;
@@ -13,10 +15,21 @@ public class UserController {
     private Signup signup;
 
     @PostMapping("/login")
-    public Profile login(@RequestParam("userid") String userId, @RequestParam("password") String pwd){
-        boolean shouldLogin =  loginSerice.authorize(userId, pwd);
+    public ProfileDto login(@RequestBody LoginDto loginDto){
+        String userId = loginDto.getUserid();
+        boolean shouldLogin =  loginSerice.authorize( userId, loginDto.getPassword());
         if(shouldLogin){
-            return signup.getProfile(userId);
+            Profile profile = signup.getProfile(userId);
+
+            ProfileDto dto = new ProfileDto();
+            String fname = profile.getName().split(" ")[0];
+            String lname = profile.getName().split(" ").length>0 ? profile.getName().split(" ")[1] : "";
+            dto.age = profile.getAge();
+            dto.userId = userId;
+            dto.fname = fname;
+            dto.lname = lname;
+
+            return dto;
         }
         return null;
 
