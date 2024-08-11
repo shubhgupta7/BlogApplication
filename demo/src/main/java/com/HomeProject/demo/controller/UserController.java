@@ -6,13 +6,19 @@ import com.HomeProject.demo.service.Login;
 import com.HomeProject.demo.service.Signup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
     private Login loginSerice;
+
     @Autowired
     private Signup signup;
+    `
 
     @PostMapping("/login")
     public ProfileDto login(@RequestBody LoginDto loginDto){
@@ -28,7 +34,6 @@ public class UserController {
             dto.userId = userId;
             dto.fname = fname;
             dto.lname = lname;
-
             return dto;
         }
         return null;
@@ -42,10 +47,18 @@ public class UserController {
         signup.addUser(userId,pwd);
         return "User "+ userId +" Added to the DataBase";
     }
+
+
     @RequestMapping("/")
     public String hw(){
         return "hello world";
     }
+
+    @GetMapping("/users")
+    public List<Profile> getUsers(){
+
+    }
+
 
 
 }

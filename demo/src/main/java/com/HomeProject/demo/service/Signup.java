@@ -6,7 +6,7 @@ import com.HomeProject.demo.repository.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
+x@Service
 public class Signup {
     @Autowired
     private Users user;

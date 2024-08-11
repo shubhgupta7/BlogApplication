@@ -21,5 +21,8 @@ public class Users {
         usersTable.put(userid,pwd);
         return true;
     }
+    public Map<String,String> getUsers(){
+
+    }
 
 }
